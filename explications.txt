@@ -1,0 +1,73 @@
+ce tuto a pour objectif de comprendre le fonctionnement d'une appli avec React, node.js, express + déploiement de l'app :
+
+
+coté back :
+création d'une api toute simple sur localhost qui renvoie un json { salut les potes }
+
+coté front : 
+une application React, qui lorsqu'on appuie sur un bouton, nous renvoie le json du back et l'inclut dans un paragraphe.
+
+
+On passe au déploiement :
+
+- on fait un build de l'application React.
+
+--> nom run build
+
+- il faut spécifier au server.js qu'on utilise à présent des fichiers statics
+
+--> app.use(express.static("client/build"));
+ 
+puis 
+const path = require("path");
+
+puis
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+
+- supprimer le git du client 
+-> cd client
+
+-> rm -rf .git
+
+puis on initialise un nouveau git
+
+-> git init 
+git add .
+git commit -m '...'
+
+
+// installer heroku cli
+// se logger : une seule fois normalement
+
+
+puis, pour créer un nouveau projet heroku
+
+--> heroku create
+
+puis dans package.json
+    "heroku-postbuild": "npm run install-client && npm run build",
+et 
+    "install-client":  "cd client && npm install",
+
+et préciser quelle version de node.js on utilise :
+
+"engines":{
+    "node": "14.x"
+  },
+
+
+// on refait un commit !
+
+
+// on lance le déploiement ::
+--> git push heroic master
+
+
+// pour tester en local
+
+-> heroku local
+
+
+
